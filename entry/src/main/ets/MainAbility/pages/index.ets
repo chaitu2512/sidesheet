@@ -14,7 +14,7 @@ struct Index {
       Column() {
 
         Button('Show Sheet')
-          .onClick(() => this.showSideSheet = true)
+          .onClick(() => this.showSideSheet = true )
 
       }
       .width('100%')
