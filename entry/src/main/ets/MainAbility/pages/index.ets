@@ -1,31 +1,37 @@
-import { MaterialSheet } from './sidesheet'
-
+import { MaterialSheet } from "./sidesheet"
+import {sheetPosition ,sideSheetModel} from "./SheetModel"
 @Entry
 @Component
 struct Index {
-  @State showSideSheet : boolean = false
-  @Builder
-  sheetDesign(): any {
-    Text("Custom builder design")
-
+  @State sheetVisible: boolean = false
+  @State sheetSide : sideSheetModel  = new sideSheetModel()
+  @Builder sheetDesign(): any {
+    Column() {
+      Text("Add UI  here ")
+        .fontSize(20)
+    }
   }
-
+  aboutToAppear(){
+    this.sheetSide.setSheetBorderColor("#ff7a6b00")
+    this.sheetSide.setSheetSide(sheetPosition.right)
+  }
   build() {
     Stack() {
       Column() {
 
         Button('Show Sheet')
-          .onClick(() => this.showSideSheet = true )
+          .onClick(() => this.sheetVisible = true)
 
       }
       .width('100%')
       .height('100%')
-      .backgroundColor(Color.Green)
 
       MaterialSheet({
-        ui: this.sheetDesign(),
-        visible: $showSideSheet
+        model : $sheetSide,
+        body : this.sheetDesign,
+        visible: $sheetVisible
       })
-    }
+    }.height("100%")
+    .width("100%")
   }
 }
